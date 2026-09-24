@@ -1,15 +1,15 @@
 package de.dreierschach.laufschrift;
 
 public class ArduinoSim {
-    private final int[] memory = new int[1024];
     private final boolean[] rows = new boolean[7];
     private final boolean[] cols = new boolean[7];
     private Runnable displayCallback = () -> {
     };
 
     public ArduinoSim() {
-        for (int a=0; a<FONT.length; a++) {
-            memory[a] = FONT[a];
+        for (int i=0; i<7; i++) {
+            rows[i] = true;
+            cols[i] = true;
         }
     }
 
@@ -43,32 +43,4 @@ public class ArduinoSim {
     public boolean hasLight(int x, int y) {
         return !col(x) && !row(y);
     }
-
-    public int mem(int adr) {
-        return (adr >= 0 && adr <= memory.length) ? memory[adr] : 0;
-    }
-
-    public void mem(int adr, int value) {
-        if (adr >= 0 && adr <= memory.length) {
-            memory[adr] = value;
-        }
-    }
-
-    public static final int[] FONT = {
-            0b00111000,
-            0b01000100,
-            0b10000010,
-            0b10000010,
-            0b10000010,
-            0b01000100,
-            0b00111000,
-
-            0b11111110,
-            0b10000010,
-            0b10000010,
-            0b10000010,
-            0b10000010,
-            0b10000010,
-            0b11111110,
-    };
 }
