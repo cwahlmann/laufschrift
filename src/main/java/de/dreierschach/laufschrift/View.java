@@ -10,7 +10,7 @@ public class View extends JFrame {
 
     public View(ArduinoSim arduinoSim) {
         super("Laufschrift");
-        setSize(1024, 768);
+        setSize(800, 800);
         this.mainCanvas = new MainCanvas(arduinoSim);
         this.add(mainCanvas);
         arduinoSim.displayCallback(this::repaint);
@@ -40,6 +40,7 @@ public class View extends JFrame {
     public static class MainCanvas extends JPanel {
         private final ArduinoSim arduinoSim;
         private int[][] buffer = new int[7][7];
+        private static final int BUFFER_DELAY = 10;
 
         public MainCanvas(ArduinoSim arduinoSim) {
             this.arduinoSim = arduinoSim;
@@ -58,15 +59,15 @@ public class View extends JFrame {
             for (int y = 0; y < 7; y++) {
                 for (int x = 0; x < 7; x++) {
                     if (arduinoSim.hasLight(x, y)) {
-                        buffer[y][x] = 7;
+                        buffer[y][x] = BUFFER_DELAY;
                     } else {
                         if (buffer[y][x] > 0) {
                             buffer[y][x]--;
                         }
                     }
-                    var color = new Color(buffer[y][x]*32, 0, 0);
+                    var color = new Color(buffer[y][x]*255 / BUFFER_DELAY, 0, 0);
                     g2.setColor(color);
-                    g2.fillOval(x * dx, y * dy, dx,  dy);
+                    g2.fillOval(x * dx, y * dy, dx*8/10,  dy*8/10);
                 }
             }
         }

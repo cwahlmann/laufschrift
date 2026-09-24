@@ -10,11 +10,11 @@ public class Laufschrift {
     }
 
     public static void run(ArduinoSim sim) {
-        for (int count = 0; count < 500; count++) {
+        while (true) {
             for (int c = 0; c < 7; c++) {
                 sim.col(c, false);
                 for (int r = 0; r < 7; r++) {
-                    sim.row(r, (c + r) % 2 > 0 );
+                    sim.row(r, false) ; //(c + r) % 2 > 0 );
                 }
                 try {
                     Thread.sleep(20);
